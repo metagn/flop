@@ -1,5 +1,7 @@
 import flop, flop/enums
 
+defineAnyEnumFlop()
+
 type Foo = enum a, b, c
 
 var x = none(Flop[Foo])

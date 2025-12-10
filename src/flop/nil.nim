@@ -1,7 +1,11 @@
 import ../flop
 
-proc isNone*[T: ptr | ref | pointer | cstring | proc | iterator](x: Flop[T]): bool {.inline.} =
-  result = T(x).isNil
+template defineNilFlop*(constraint: untyped) =
+  proc isNone*[T: constraint](x: Flop[T]): bool {.inline.} =
+    result = T(x).isNil
 
-proc none*[T: ptr | ref | pointer | cstring | proc | iterator](_: type Flop[T]): Flop[T] {.inline.} =
-  result = Flop[T](T(nil))
+  proc none*[T: constraint](_: type Flop[T]): Flop[T] {.inline.} =
+    result = Flop[T](T(nil))
+
+template defineAnyNilFlop*() =
+  defineNilFlop(ptr | ref | pointer | cstring | proc | iterator)

@@ -14,14 +14,18 @@ template baseType(T: typedesc): typedesc =
   else:
     {.error: "unknown base type of enum " & $T.}
 
-proc isNone*[T: enum](x: Flop[T]): bool {.inline.} =
-  when ord(low(T)) > 0:
-    result = ord(T(x)) == 0
-  else:
-    result = ord(T(x)) == ord(high(T)) + 1
+template defineEnumFlop*(constraint: untyped) =
+  proc isNone*[T: constraint](x: Flop[T]): bool {.inline.} =
+    when ord(low(T)) > 0:
+      result = ord(T(x)) == 0
+    else:
+      result = ord(T(x)) == ord(high(T)) + 1
 
-proc none*[T: enum](_: type Flop[T]): Flop[T] {.inline.} =
-  when ord(low(T)) > 0:
-    result = Flop[T](cast[T](0))
-  else:
-    result = Flop[T](cast[T](baseType(T)(ord(high(T))) + 1))
+  proc none*[T: constraint](_: type Flop[T]): Flop[T] {.inline.} =
+    when ord(low(T)) > 0:
+      result = Flop[T](cast[T](0))
+    else:
+      result = Flop[T](cast[T](baseType(T)(ord(high(T))) + 1))
+
+template defineAnyEnumFlop*() =
+  defineEnumFlop(enum)
