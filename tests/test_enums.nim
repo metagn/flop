@@ -1,4 +1,4 @@
-import flop, flop/enums
+import flop/[common, enums]
 
 defineAnyEnumFlop()
 

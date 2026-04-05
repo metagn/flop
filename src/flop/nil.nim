@@ -1,4 +1,4 @@
-import ../flop
+import ./common
 
 template defineNilFlop*(constraint: untyped) =
   proc isNone*[T: constraint](x: Flop[T]): bool {.inline.} =

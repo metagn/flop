@@ -1,4 +1,4 @@
-import ../flop
+import ./common
 
 template defineRangeFlop*(constraint: untyped) =
   proc isNone*[T: constraint](x: Flop[T]): bool {.inline.} =

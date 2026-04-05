@@ -1,4 +1,4 @@
-import ../flop
+import ./common
 
 template baseType(T: typedesc): typedesc =
   when ord(low(T)) < 0:
